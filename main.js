@@ -24,8 +24,13 @@ let viewingPackage = null;
 
 
 function createMainWindow() {
-	mainWindow = BrowserWindowFactory.createWindow(`file://${__dirname}/src/windows/index.html`, 600, windowIcon);
-	// mainWindow.webContents.openDevTools();
+	// angular
+	mainWindow = BrowserWindowFactory.createWindow(`file://${__dirname}/index.html`, 800, windowIcon);
+
+	// vanilla
+	// mainWindow = BrowserWindowFactory.createWindow(`file://${__dirname}/src/windows/index.html`, 600, windowIcon);
+
+	mainWindow.webContents.openDevTools();
 	mainWindow.on('closed', () => {
 		mainWindow = null
 	})
