@@ -4,10 +4,15 @@
   "description": "A Composer user interface",
   "main": "main.js",
   "scripts": {
-    "start": "electron .",
+    "start": "cross-env NODE_ENV=production electron ./",
     "pack": "build --dir",
-    "dist": "build",
-    "dist-all": "build -mwl",
+    "dev": "cross-env NODE_ENV=development electron ./",
+    "build": "cross-env NODE_ENV=production webpack --progress --profile --colors",
+    "dev-server": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --quiet --port 3000",
+    "package": "npm run build; npm run package-osx; npm run package-win; npm run package-linux;",
+    "package-osx": "electron-packager ./ --platform=darwin --arch=x64 --icon=assets/app.icns --out=package --asar=true --overwrite=force",
+    "package-win": "electron-packager ./ --platform=win32 --arch=ia32 --icon=assets/app.ico --out=package --asar=true --overwrite=force",
+    "package-linux": "electron-packager ./ --platform=linux --arch=ia32 --icon=assets/app.ico --out=package --asar=true --overwrite=force",
     "test": "mocha"
   },
   "repository": {
@@ -67,10 +72,16 @@
   },
   "devDependencies": {
     "autoprefixer": "^6.0.3",
+    "babel-core": "^6.0.0",
+    "babel-loader": "^6.0.0",
+    "babel-preset-env": "^1.5.1",
     "chai": "^3.5.0",
     "chai-as-promised": "^6.0.0",
+    "cross-env": "^3.0.0",
+    "css-loader": "^0.25.0",
     "electron": "^1.7.5",
     "electron-builder": "^7.14.2",
+    "file-loader": "^0.9.0",
     "grunt": "^1.0.1",
     "grunt-contrib-clean": "^1.0.0",
     "grunt-contrib-watch": "^1.0.0",
@@ -78,12 +89,19 @@
     "grunt-scss-lint": "^0.3.8",
     "load-grunt-tasks": "^3.4.0",
     "mocha": "^3.4.2",
-    "spectron": "^3.7.2"
+    "node-sass": "^4.5.0",
+    "sass-loader": "^5.0.1",
+    "spectron": "^3.7.2",
+    "vue-loader": "^12.1.0",
+    "vue-template-compiler": "^2.3.3",
+    "webpack": "^2.6.1",
+    "webpack-dev-server": "^2.4.5"
   },
   "dependencies": {
     "electron-config": "^0.2.1",
     "electron-is-dev": "^0.1.2",
     "electron-updater": "^1.16.0",
-    "font-awesome": "^4.6.3"
+    "font-awesome": "^4.6.3",
+    "vue": "^2.4.2"
   }
 }
